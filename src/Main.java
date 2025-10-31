@@ -53,7 +53,7 @@ public class Main {
 
                 case "Ingresar video" -> {
 
-                    if(cuenta != null) {
+                    if(cuenta == null) {
                         JOptionPane.showMessageDialog(null, "Iniciar sesión");
                     }
 
