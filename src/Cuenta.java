@@ -6,6 +6,7 @@ public class Cuenta {
     private String estado;
     private Stack subidos;
     private Queue vistos;
+    private int contador;
 
     public Cuenta(String username, Usuario usuario, String contrasenia) {
         this.username = username;
@@ -13,9 +14,8 @@ public class Cuenta {
         this.contrasenia = contrasenia;
         this.subidos = new Stack();
         this.vistos = new Queue();
+        this.contador = 0;
     }
-
-
 
     public String getUsername() {
         return username;
@@ -64,4 +64,13 @@ public class Cuenta {
     public void setVistos(Queue vistos) {
         this.vistos = vistos;
     }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void incrementarContador() {
+        contador ++;
+    }
+
 }

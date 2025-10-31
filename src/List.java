@@ -183,7 +183,8 @@ public class List {
         Node aux = head;
         while (aux != null) {
             Cuenta cuenta = (Cuenta) aux.getData();
-            if (cuenta.getUsuario().getId().equals(id) && cuenta.getContrasenia().equals(contrasenia)) {
+            if (cuenta.getUsuario().getId().equalsIgnoreCase(id) &&
+                    cuenta.getContrasenia().equalsIgnoreCase(contrasenia)) {
                 return cuenta;
             }
             aux = aux.getLink();

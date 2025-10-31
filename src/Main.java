@@ -6,8 +6,7 @@ public class Main {
     public static void main(String[] args) {
 
         List cuentas = new List();
-        Stack subidos = new Stack();
-        Queue vistos = new Queue();
+        Cuenta cuenta = null;
 
         String menu[] = {"Registrar cuenta", "Iniciar sesión", "Ingresar video", "Buscar video", "Reproducir video",
                 "Ver reproducciones", "Cuenta de cobro", "Top 10 reproducciones", "Realizar sorteo", "Sugerencias",
@@ -15,7 +14,7 @@ public class Main {
         String[] estados = {"activo", "suspendido", "inactivo"};
         String[] tipos = {"musical", "academico", "pelicula", "publicitario", "otro"};
 
-        String option, username, contrasenia, estado, nombre, id;
+        String option, username, contrasenia, estado, nombre, id, descripcion, tipo,duracion;
 
         do {
             option = (String) JOptionPane.showInputDialog(null, "Seleccionar opción", "",
@@ -33,22 +32,45 @@ public class Main {
 
                     contrasenia = JOptionPane.showInputDialog("Ingresar contraseña:");
                     Usuario usuario = new Usuario(nombre, id);
-                    Cuenta cuenta = new Cuenta(username, usuario, contrasenia);
+                    cuenta = new Cuenta(username, usuario, contrasenia);
                     cuentas.AddLast(cuenta);
                     JOptionPane.showMessageDialog(null, "Cuenta de " + nombre + " creada exitosamente");
 
                 }
 
                 case "Iniciar sesión" -> {
+
                     id = JOptionPane.showInputDialog("Ingresar id");
                     contrasenia = JOptionPane.showInputDialog("Ingresar contraseña:");
 
-                    Cuenta cuenta = cuentas.iniciarSesion(id, contrasenia);
+                     cuenta = cuentas.iniciarSesion(id, contrasenia);
 
                     if(cuenta != null)
                         JOptionPane.showMessageDialog(null, "Sesión iniciada");
                     else
                         JOptionPane.showMessageDialog(null, "Id o contraseña no válidos");
+                }
+
+                case "Ingresar video" -> {
+
+                    if(cuenta != null) {
+                        JOptionPane.showMessageDialog(null, "Iniciar sesión");
+                    }
+
+                    cuenta.incrementarContador();
+                    int numConsecutivo = cuenta.getContador();
+                    id = cuenta.getUsuario().getId() + String.format("%04d", numConsecutivo );
+                    nombre = JOptionPane.showInputDialog("Ingresar nombre del video:");
+                    descripcion = JOptionPane.showInputDialog("Descripción del video");
+                    tipo = (String) JOptionPane.showInputDialog(null, "Seleccionar opción", "",
+                            1, null, tipos, tipos[0]);
+                    duracion = JOptionPane.showInputDialog("Duración del video:");
+
+                    Video video = new Video(id,nombre,descripcion,tipo, duracion);
+                    cuenta.getSubidos().push(video);
+                    JOptionPane.showMessageDialog(null, "El vieo ha sido agregado exitosamente");
+
+
                 }
             }
 
